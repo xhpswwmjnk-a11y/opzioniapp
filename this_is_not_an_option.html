@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it" data-t="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>This is not an option</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4f0;--bg1:#fff;--bg2:#eceae3;--bg3:#e0ddd5;
+  --b1:rgba(0,0,0,.08);--b2:rgba(0,0,0,.14);
+  --t1:#1c1a14;--t2:#6b6860;--t3:#a8a59d;
+  --acc:#c0420a;--abg:rgba(192,66,10,.08);
+  --sh:0 1px 4px rgba(0,0,0,.09);
+}
+[data-t=dark]{
+  --bg:#0a0a0a;--bg1:#0f0f0f;--bg2:#161616;--bg3:#1d1d1d;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);
+  --t1:#f5f0eb;--t2:#8a8680;--t3:#45433e;
+  --acc:#e05a1a;--abg:rgba(224,90,26,.1);
+  --sh:0 1px 6px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;
+  font-weight:300;min-height:100vh;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{background:var(--bg1);border-bottom:1px solid var(--b1);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+.brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.brand em{font-style:italic;color:var(--acc)}
+.tog{display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
+.tog-track{width:36px;height:20px;border-radius:10px;border:1px solid var(--b2);
+  background:var(--bg3);position:relative}
+.tog-thumb{width:14px;height:14px;border-radius:50%;background:var(--t1);
+  position:absolute;top:2px;left:2px;transition:transform .2s}
+[data-t=dark] .tog-thumb{transform:translateX(16px)}
+.tog-lbl{font-size:11px;color:var(--t3)}
+
+/* LANDING */
+.landing{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:60px 40px;gap:60px}
+.landing-hero{text-align:center;max-width:600px}
+.landing-hero h1{font-family:'Playfair Display',serif;font-size:42px;
+  font-weight:600;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.landing-hero h1 em{font-style:italic;color:var(--acc)}
+.landing-hero p{font-size:15px;color:var(--t2);line-height:1.8;max-width:480px;margin:0 auto}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  width:100%;max-width:900px}
+.card{background:var(--bg1);border:1px solid var(--b1);border-radius:16px;
+  padding:32px 28px;display:flex;flex-direction:column;gap:0;
+  transition:border-color .2s,box-shadow .2s;box-shadow:var(--sh);cursor:pointer}
+.card:hover{border-color:var(--acc);box-shadow:0 4px 24px rgba(192,66,10,.12)}
+.card-num{font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.card-icon{font-size:28px;margin-bottom:16px}
+.card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;
+  color:var(--t1);margin-bottom:8px;line-height:1.2}
+.card-sub{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:28px;flex:1}
+.card-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 20px;background:var(--acc);color:#fff;border:none;border-radius:8px;
+  font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:opacity .15s;width:100%}
+.card-btn:hover{opacity:.85}
+.card-tag{display:inline-block;font-size:9px;font-weight:500;padding:2px 8px;
+  border-radius:10px;font-family:'JetBrains Mono',monospace;margin-bottom:14px;
+  background:var(--abg);color:var(--acc)}
+
+/* VIEWER */
+.viewer{display:none;flex-direction:column;height:100vh;
+  position:fixed;inset:0;z-index:200;background:var(--bg)}
+.viewer.open{display:flex}
+.viewer-bar{background:var(--bg1);border-bottom:1px solid var(--b1);
+  height:44px;display:flex;align-items:center;padding:0 20px;gap:14px;
+  flex-shrink:0;box-shadow:var(--sh)}
+.back-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;
+  border:1px solid var(--b2);border-radius:7px;background:transparent;
+  color:var(--t2);font-size:11px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:all .15s}
+.back-btn:hover{background:var(--bg2);color:var(--t1)}
+.viewer-title{font-size:12px;font-weight:500;color:var(--t1)}
+.viewer-frame{flex:1;border:none;width:100%;background:var(--bg)}
+
+/* FOOTER */
+.footer{padding:24px 40px;border-top:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between}
+.footer-note{font-size:11px;color:var(--t3)}
+
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr}
+  .landing{padding:40px 20px;gap:40px}
+  .landing-hero h1{font-size:30px}
+  .topbar{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">This is not <em>an option</em></div>
+  <div class="tog" onclick="flipT()">
+    <span class="tog-lbl">☀</span>
+    <div class="tog-track"><div class="tog-thumb"></div></div>
+    <span class="tog-lbl">☾</span>
+  </div>
+</div>
+
+<div class="landing" id="landing">
+  <div class="landing-hero">
+    <h1>Impara le opzioni.<br><em>Davvero.</em></h1>
+    <p>Tre strumenti distinti. Dalla teoria alla simulazione operativa, passando per l'allenamento cognitivo. Scegli da dove iniziare.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card" onclick="openTool(0)">
+      <div class="card-num">01 — Fondamenta</div>
+      <div class="card-icon">📖</div>
+      <div class="card-tag">Teoria + Simulatori</div>
+      <div class="card-title">Guida alle opzioni</div>
+      <div class="card-sub">Delta, theta, vega. Vol crush, earnings, greche. Simulatori Black-Scholes interattivi, quiz e glossario di 32 termini. Il punto di partenza.</div>
+      <button class="card-btn">Apri la guida →</button>
+    </div>
+
+    <div class="card" onclick="openTool(1)">
+      <div class="card-num">02 — Cognizione</div>
+      <div class="card-icon">🧠</div>
+      <div class="card-tag">Bias + Profilo cognitivo</div>
+      <div class="card-title">Laboratorio cognitivo</div>
+      <div class="card-sub">12 scenari reali. Confidence slider, premortem, Socrate che critica anche la risposta corretta. Mappa i tuoi bias sistematici prima che costino.</div>
+      <button class="card-btn">Apri il laboratorio →</button>
+    </div>
+
+    <div class="card" onclick="openTool(2)">
+      <div class="card-num">03 — Operatività</div>
+      <div class="card-icon">⚡</div>
+      <div class="card-tag">Scenari ramificati</div>
+      <div class="card-title">Simulatore decisionale</div>
+      <div class="card-sub">5 scenari ramificati su casi reali. Ogni decisione cambia il percorso. Black-Scholes live ad ogni nodo. Socrate, ex market maker, giudica ogni mossa.</div>
+      <button class="card-btn">Apri il simulatore →</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span class="footer-note">This is not an option — Piattaforma educativa sulle opzioni finanziarie</span>
+  <span class="footer-note" id="footer-status"></span>
+</div>
+
+<!-- VIEWER — iframe fullscreen -->
+<div class="viewer" id="viewer">
+  <div class="viewer-bar">
+    <button class="back-btn" onclick="closeTool()">← Torna alla home</button>
+    <span class="viewer-title" id="viewer-title"></span>
+  </div>
+  <iframe class="viewer-frame" id="viewer-frame" src="" allowfullscreen></iframe>
+</div>
+
+<script>
+var TOOLS = [
+  {file:'meccanismi_opzioni.html',   title:'Guida alle opzioni'},
+  {file:'laboratorio_cognitivo.html', title:'Laboratorio cognitivo'},
+  {file:'simulatore_decisionale.html',title:'Simulatore decisionale'},
+];
+
+function openTool(n){
+  var t = TOOLS[n];
+  document.getElementById('viewer-title').textContent = t.title;
+  document.getElementById('viewer-frame').src = t.file;
+  document.getElementById('viewer').classList.add('open');
+  document.getElementById('landing').style.display = 'none';
+  document.querySelector('.footer').style.display = 'none';
+  document.querySelector('.topbar').style.display = 'none';
+}
+
+function closeTool(){
+  document.getElementById('viewer').classList.remove('open');
+  document.getElementById('viewer-frame').src = '';
+  document.getElementById('landing').style.display = '';
+  document.querySelector('.footer').style.display = '';
+  document.querySelector('.topbar').style.display = '';
+}
+
+function flipT(){
+  var h = document.documentElement;
+  var dark = h.getAttribute('data-t') === 'dark';
+  h.setAttribute('data-t', dark ? 'light' : 'dark');
+}
+</script>
+</body>
+</html>
