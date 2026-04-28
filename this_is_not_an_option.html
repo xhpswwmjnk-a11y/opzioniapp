@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it" data-t="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>This is not an option</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4f0;--bg1:#fff;--bg2:#eceae3;--bg3:#e0ddd5;
+  --b1:rgba(0,0,0,.07);--b2:rgba(0,0,0,.13);
+  --t1:#1c1a14;--t2:#6b6860;--t3:#a8a59d;
+  --acc:#c0420a;--abg:rgba(192,66,10,.08);
+  --sh:0 1px 4px rgba(0,0,0,.09);
+}
+[data-t=dark]{
+  --bg:#0a0a0a;--bg1:#0f0f0f;--bg2:#161616;--bg3:#1d1d1d;
+  --b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);
+  --t1:#f5f0eb;--t2:#8a8680;--t3:#45433e;
+  --acc:#e05a1a;--abg:rgba(224,90,26,.1);
+  --sh:0 1px 6px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;
+  font-weight:300;min-height:100vh;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{background:var(--bg1);border-bottom:1px solid var(--b1);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+.brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.brand em{font-style:italic;color:var(--acc)}
+.tog{display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
+.tog-track{width:36px;height:20px;border-radius:10px;border:1px solid var(--b2);
+  background:var(--bg3);position:relative}
+.tog-thumb{width:14px;height:14px;border-radius:50%;background:var(--t1);
+  position:absolute;top:2px;left:2px;transition:transform .2s}
+[data-t=dark] .tog-thumb{transform:translateX(16px)}
+.tog-lbl{font-size:11px;color:var(--t3)}
+[data-t=dark] .tog-lbl:first-child{color:var(--t3)}
+[data-t=light] .tog-lbl:first-child{color:#f59e0b;text-shadow:0 0 8px rgba(245,158,11,.7)}
+
+/* LANDING */
+.landing{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:60px 40px;gap:56px}
+.landing-hero{text-align:center;max-width:580px}
+.landing-hero h1{font-family:'Playfair Display',serif;font-size:40px;
+  font-weight:600;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px}
+.landing-hero h1 em{font-style:italic;color:var(--acc)}
+.landing-hero p{font-size:15px;color:var(--t2);line-height:1.8;max-width:460px;margin:0 auto}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  width:100%;max-width:880px}
+.card{background:var(--bg1);border:1px solid var(--b1);border-radius:14px;
+  padding:26px 24px;display:flex;flex-direction:column;
+  transition:border-color .2s,box-shadow .2s;box-shadow:var(--sh);cursor:pointer}
+.card:hover{border-color:var(--acc);box-shadow:0 4px 20px rgba(192,66,10,.1)}
+.card-num{font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.card-icon{font-size:26px;margin-bottom:14px}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;
+  color:var(--t1);margin-bottom:7px;line-height:1.2}
+.card-sub{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:22px;flex:1}
+.card-tag{display:inline-block;font-size:9px;font-weight:500;padding:2px 7px;
+  border-radius:10px;font-family:'JetBrains Mono',monospace;margin-bottom:12px;
+  background:var(--abg);color:var(--acc)}
+.card-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 18px;background:var(--acc);color:#fff;border:none;border-radius:7px;
+  font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:opacity .15s;width:100%}
+.card-btn:hover{opacity:.85}
+
+/* FOOTER */
+.footer{padding:20px 40px;border-top:1px solid var(--b1)}
+.footer-note{font-size:11px;color:var(--t3)}
+
+@media(max-width:680px){
+  .cards{grid-template-columns:1fr}
+  .landing{padding:40px 20px;gap:36px}
+  .landing-hero h1{font-size:28px}
+  .topbar{padding:0 20px}
+  .footer{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">This is not <em>an option</em></div>
+  <div class="tog" onclick="flipT()">
+    <span class="tog-lbl">☀</span>
+    <div class="tog-track"><div class="tog-thumb"></div></div>
+    <span class="tog-lbl">☾</span>
+  </div>
+</div>
+
+<div class="landing">
+  <div class="landing-hero">
+    <h1>Impara le <em>opzioni</em>.</h1>
+    <p>Dalla teoria alla simulazione operativa, passando per l'allenamento cognitivo. Tre strumenti distinti. Scegli da dove iniziare.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card" onclick="openTool(0)">
+      <div class="card-num">01 — Fondamenta</div>
+      <div class="card-icon">📖</div>
+      <div class="card-tag">Teoria + Simulatori</div>
+      <div class="card-title">Guida alle opzioni</div>
+      <div class="card-sub">Delta, theta, vega. Vol crush, earnings, greche. Simulatori Black-Scholes interattivi, quiz e glossario di 32 termini.</div>
+      <button class="card-btn">Apri la guida →</button>
+    </div>
+
+    <div class="card" onclick="openTool(1)">
+      <div class="card-num">02 — Cognizione</div>
+      <div class="card-icon">🧠</div>
+      <div class="card-tag">Bias + Profilo cognitivo</div>
+      <div class="card-title">Laboratorio cognitivo</div>
+      <div class="card-sub">12 scenari reali. Confidence slider, premortem, Socrate che critica anche la risposta corretta. Mappa i tuoi bias sistematici.</div>
+      <button class="card-btn">Apri il laboratorio →</button>
+    </div>
+
+    <div class="card" onclick="openTool(2)">
+      <div class="card-num">03 — Operatività</div>
+      <div class="card-icon">⚡</div>
+      <div class="card-tag">Scenari ramificati</div>
+      <div class="card-title">Simulatore decisionale</div>
+      <div class="card-sub">5 scenari ramificati su casi reali. Ogni decisione cambia il percorso. Black-Scholes live ad ogni nodo. Socrate giudica ogni mossa.</div>
+      <button class="card-btn">Apri il simulatore →</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span class="footer-note">This is not an option — Piattaforma educativa sulle opzioni finanziarie</span><br>
+  <span class="footer-note">pensata e realizzata da luca f per provare a capirci qualcosa</span>
+</div>
+
+<script>
+var TOOLS = [
+  {file:'meccanismi_opzioni.html'},
+  {file:'laboratorio_cognitivo.html'},
+  {file:'simulatore_decisionale.html'},
+];
+function openTool(n){ window.location.href = TOOLS[n].file; }
+function flipT(){
+  var h=document.documentElement;
+  h.setAttribute('data-t',h.getAttribute('data-t')==='dark'?'light':'dark');
+}
+</script>
+</body>
+</html>
